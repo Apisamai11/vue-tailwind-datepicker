@@ -58,6 +58,7 @@ interface Props {
   useRange?: boolean
   placeholder?: string
   i18n?: string
+  type?: string
   inputClasses?: string
   disabled?: boolean
   disableInRange?: boolean
@@ -86,7 +87,7 @@ interface Props {
       cancel: string
     }
   }
-  isBuddhistEra: boolean
+  isBuddhistEra?: boolean
   modelValue:
     | [Date, Date]
     | { start: Date | string; end: Date | string }
@@ -128,6 +129,7 @@ const props = withDefaults(defineProps<Props>(), {
       cancel: 'Cancel',
     },
   }),
+  type: '',
   isBuddhistEra: false,
   modelValue: () => [new Date(), new Date()],
 })
@@ -209,6 +211,7 @@ const calendar = computed(() => {
   return {
     previous: {
       date: () => {
+        // console.log(props.i18n)
         return usePreviousDate(previous)
           .concat(useCurrentDate(previous))
           .concat(useNextDate(previous))
@@ -255,7 +258,6 @@ const calendar = computed(() => {
       month: previous && previous.format(props.formatter.month),
       year: previous && previous.format(props.formatter.year),
       years: () => {
-        console.log(props.isBuddhistEra)
         const yearThai = dayjs()
           .year(year.previous)
           .add(543, 'year')
@@ -305,6 +307,9 @@ const calendar = computed(() => {
 
           datepicker.value.year.next = datepicker.value.next.year()
         })
+
+        if (props.type === 'month')
+          setDate(dayjs(`${previous.month($event)}`), close)
       },
       openYear: () => {
         panel.previous.year = !panel.previous.year
@@ -328,6 +333,9 @@ const calendar = computed(() => {
           datepicker.value.year.previous = datepicker.value.previous.year()
           datepicker.value.year.next = datepicker.value.next.year()
         })
+
+        if (props.type === 'month')
+          setDate(dayjs(`${datepicker.value.previous}`), close)
       },
     },
     next: {
@@ -390,7 +398,6 @@ const calendar = computed(() => {
         )
       },
       onPrevious: () => {
-        datepicker.value.next = next.subtract(1, 'month')
         if (next.diff(previous, 'month') === 1)
           datepicker.value.previous = previous.subtract(1, 'month')
 
@@ -430,6 +437,9 @@ const calendar = computed(() => {
 
           datepicker.value.year.previous = datepicker.value.previous.year()
         })
+
+        if (props.type === 'month')
+          setDate(dayjs(`${next.month($event)}`), close)
       },
       openYear: () => {
         panel.next.year = !panel.next.year
@@ -458,6 +468,9 @@ const calendar = computed(() => {
           datepicker.value.year.previous = datepicker.value.previous.year()
           datepicker.value.year.next = datepicker.value.next.year()
         })
+
+        if (props.type === 'month')
+          setDate(dayjs(`${datepicker.value.next}`), close)
       },
     },
   }
@@ -640,6 +653,7 @@ function setDate(date: Dayjs, close?: (ref?: Ref | HTMLElement) => void) {
             )
           )
         }
+
         if (close) close()
 
         applyValue.value = []
@@ -1506,7 +1520,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                         :years="calendar.previous.years()"
                         @update-year="calendar.previous.setYear"
                       />
-                      <div v-show="panel.previous.calendar">
+                      <div v-show="panel.previous.calendar && type !== 'month'">
                         <VtdWeek :weeks="weeks" />
                         <VtdCalendar
                           :calendar="calendar.previous"

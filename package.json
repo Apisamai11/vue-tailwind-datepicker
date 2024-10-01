@@ -1,7 +1,7 @@
 {
   "name": "vue-tailwind-cin-datepicker",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "A date range picker component for Vue.js 3 using Tailwind CSS",
   "author": {
     "name": "Apisamai11",
