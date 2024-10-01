@@ -1,21 +1,21 @@
 {
   "name": "vue-tailwind-cin-datepicker",
   "type": "module",
-  "version": "1.7.3",
+  "version": "0.0.1",
   "description": "A date range picker component for Vue.js 3 using Tailwind CSS",
   "author": {
-    "name": "elreco",
-    "email": "alexandre@heypongo.com",
-    "url": "https://github.com/elreco"
+    "name": "Apisamai11",
+    "email": "apisamai.npk@gmail.com",
+    "url": "https://github.com/Apisamai11"
   },
   "homepage": "https://vue-tailwind-datepicker.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elreco/vue-tailwind-datepicker.git"
+    "url": "https://github.com/Apisamai11/vue-tailwind-datepicker.git"
   },
   "bugs": {
-    "url": "https://github.com/elreco/vue-tailwind-datepicker/issues",
-    "email": "alexandre@heypongo.com"
+    "url": "https://github.com/Apisamai11/vue-tailwind-datepicker/issues",
+    "email": "apisamai.npk@gmail.com"
   },
   "keywords": [
     "vue-tailwind-datepicker",
