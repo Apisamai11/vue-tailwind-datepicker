@@ -96,6 +96,7 @@ interface Props {
         endDate: Date | string
       }
     | string
+  dialogMode?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -132,6 +133,7 @@ const props = withDefaults(defineProps<Props>(), {
   type: '',
   isBuddhistEra: false,
   modelValue: () => [new Date(), new Date()],
+  dialogMode: false,
 })
 
 const emit = defineEmits<{
@@ -211,7 +213,6 @@ const calendar = computed(() => {
   return {
     previous: {
       date: () => {
-        // console.log(props.i18n)
         return usePreviousDate(previous)
           .concat(useCurrentDate(previous))
           .concat(useNextDate(previous))
@@ -307,9 +308,8 @@ const calendar = computed(() => {
 
           datepicker.value.year.next = datepicker.value.next.year()
         })
-
-        if (props.type === 'month')
-          setDate(dayjs(`${previous.month($event)}`), close)
+        // if (props.type === 'month')
+        //   setDate(dayjs(`${previous.month($event)}`), close)
       },
       openYear: () => {
         panel.previous.year = !panel.previous.year
@@ -334,8 +334,8 @@ const calendar = computed(() => {
           datepicker.value.year.next = datepicker.value.next.year()
         })
 
-        if (props.type === 'month')
-          setDate(dayjs(`${datepicker.value.previous}`), close)
+        // if (props.type === 'month')
+        //   setDate(dayjs(`${datepicker.value.previous}`), close)
       },
     },
     next: {
@@ -437,9 +437,9 @@ const calendar = computed(() => {
 
           datepicker.value.year.previous = datepicker.value.previous.year()
         })
-
-        if (props.type === 'month')
-          setDate(dayjs(`${next.month($event)}`), close)
+        test()
+        // if (props.type === 'month')
+        //   setDate(dayjs(`${next.month($event)}`), close)
       },
       openYear: () => {
         panel.next.year = !panel.next.year
@@ -469,8 +469,8 @@ const calendar = computed(() => {
           datepicker.value.year.next = datepicker.value.next.year()
         })
 
-        if (props.type === 'month')
-          setDate(dayjs(`${datepicker.value.next}`), close)
+        // if (props.type === 'month')
+        //   setDate(dayjs(`${datepicker.value.next}`), close)
       },
     },
   }
@@ -653,7 +653,6 @@ function setDate(date: Dayjs, close?: (ref?: Ref | HTMLElement) => void) {
             )
           )
         }
-
         if (close) close()
 
         applyValue.value = []
@@ -1465,7 +1464,8 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
         v-if="!props.disabled"
         v-slot="{ close }: { close: (ref?: Ref | HTMLElement) => void }"
         as="div"
-        class="relative z-50"
+        class="z-50"
+        :class="dialogMode ? 'fixed' : 'relative'"
       >
         <div
           class="absolute z-50 top-full sm:mt-2.5"
