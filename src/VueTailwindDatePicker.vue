@@ -308,8 +308,8 @@ const calendar = computed(() => {
 
           datepicker.value.year.next = datepicker.value.next.year()
         })
-        // if (props.type === 'month')
-        //   setDate(dayjs(`${previous.month($event)}`), close)
+
+        if (props.type === 'month') setDate(dayjs(`${previous.month($event)}`))
       },
       openYear: () => {
         panel.previous.year = !panel.previous.year
@@ -334,8 +334,8 @@ const calendar = computed(() => {
           datepicker.value.year.next = datepicker.value.next.year()
         })
 
-        // if (props.type === 'month')
-        //   setDate(dayjs(`${datepicker.value.previous}`), close)
+        if (props.type === 'month')
+          setDate(dayjs(`${datepicker.value.previous}`))
       },
     },
     next: {
@@ -437,9 +437,8 @@ const calendar = computed(() => {
 
           datepicker.value.year.previous = datepicker.value.previous.year()
         })
-        test()
-        // if (props.type === 'month')
-        //   setDate(dayjs(`${next.month($event)}`), close)
+
+        if (props.type === 'month') setDate(dayjs(`${next.month($event)}`))
       },
       openYear: () => {
         panel.next.year = !panel.next.year
@@ -469,8 +468,7 @@ const calendar = computed(() => {
           datepicker.value.year.next = datepicker.value.next.year()
         })
 
-        // if (props.type === 'month')
-        //   setDate(dayjs(`${datepicker.value.next}`), close)
+        if (props.type === 'month') setDate(dayjs(`${datepicker.value.next}`))
       },
     },
   }
@@ -1513,11 +1511,15 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                       <VtdMonth
                         v-show="panel.previous.month"
                         :months="months"
+                        :type="type"
+                        :close="close"
                         @update-month="calendar.previous.setMonth"
                       />
                       <VtdYear
                         v-show="panel.previous.year"
                         :years="calendar.previous.years()"
+                        :type="type"
+                        :close="close"
                         @update-year="calendar.previous.setYear"
                       />
                       <div v-show="panel.previous.calendar && type !== 'month'">
@@ -1546,12 +1548,16 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                       <VtdMonth
                         v-show="panel.next.month"
                         :months="months"
+                        :type="type"
+                        :close="close"
                         @update-month="calendar.next.setMonth"
                       />
                       <VtdYear
                         v-show="panel.next.year"
                         as-prev-or-next
                         :years="calendar.next.years()"
+                        :type="type"
+                        :close="close"
                         @update-year="calendar.next.setYear"
                       />
                       <div v-show="panel.next.calendar">

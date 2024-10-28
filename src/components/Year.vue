@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import type { Ref } from 'vue'
+
 defineProps<{
   years: number[]
+  close?: (ref?: Ref | HTMLElement) => void
+  type?: string
 }>()
 
 const emit = defineEmits<{
@@ -15,7 +19,12 @@ const emit = defineEmits<{
         <button
           type="button"
           class="px-3 py-2 block w-full leading-6 rounded-md bg-white text-xs 2xl:text-sm tracking-wide text-vtd-secondary-600 font-medium transition-colors border border-transparent hover:bg-vtd-secondary-100 hover:text-vtd-secondary-900 focus:bg-vtd-primary-50 focus:text-vtd-secondary-900 focus:border-vtd-primary-300 focus:ring focus:ring-vtd-primary-500 focus:ring-opacity-10 focus:outline-none uppercase dark:bg-vtd-secondary-800 dark:hover:bg-vtd-secondary-700 dark:text-vtd-secondary-300 dark:hover:text-vtd-secondary-100 dark:focus:bg-vtd-secondary-700"
-          @click="emit('updateYear', year)"
+          @click="
+            () => {
+              emit('updateYear', year)
+              if (close && type === 'month') close()
+            }
+          "
           v-text="year"
         />
       </span>
