@@ -1469,9 +1469,10 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
           class="absolute z-50 top-full sm:mt-2.5"
           :class="getAbsoluteParentClass(open)"
         >
+          <!-- responsive class fixed -->
           <div
             ref="VtdRef"
-            class="fixed inset-0 z-50 overflow-y-auto sm:overflow-visible sm:static sm:z-auto bg-white dark:bg-vtd-secondary-800 sm:rounded-lg shadow-sm"
+            class="inset-0 z-50 overflow-y-auto sm:overflow-visible sm:static sm:z-auto bg-white dark:bg-vtd-secondary-800 rounded-lg shadow-sm"
           >
             <div
               class="vtd-datepicker static sm:relative w-full bg-white sm:rounded-lg sm:shadow-sm border-0 sm:border border-black/[.1] px-3 py-3 sm:px-4 sm:py-4 dark:bg-vtd-secondary-800 dark:border-vtd-secondary-700/[1]"
@@ -1600,7 +1601,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                   </div>
                 </div>
               </div>
-              <div v-else class="sm:hidden">
+              <!-- <div v-else class="sm:hidden">
                 <div
                   class="mt-2 mx-2 py-1.5 border-t border-black/[.1] dark:border-vtd-secondary-700/[1]"
                 >
@@ -1613,7 +1614,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                     />
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
