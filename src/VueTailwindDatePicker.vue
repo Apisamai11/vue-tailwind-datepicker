@@ -1469,13 +1469,12 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
           class="absolute z-50 top-full sm:mt-2.5"
           :class="getAbsoluteParentClass(open)"
         >
-          <!-- responsive class fixed -->
           <div
             ref="VtdRef"
-            class="inset-0 z-50 overflow-y-auto sm:overflow-visible sm:static sm:z-auto bg-white dark:bg-vtd-secondary-800 rounded-lg shadow-sm"
+            class="fixed inset-0 z-50 overflow-y-auto sm:overflow-visible sm:static sm:z-auto bg-white dark:bg-vtd-secondary-800 rounded-lg shadow-sm"
           >
             <div
-              class="vtd-datepicker static sm:relative w-full bg-white sm:rounded-lg sm:shadow-sm border-0 sm:border border-black/[.1] px-3 py-3 sm:px-4 sm:py-4 dark:bg-vtd-secondary-800 dark:border-vtd-secondary-700/[1]"
+              class="vtd-datepicker static sm:fixed w-auto bg-white sm:rounded-lg sm:shadow-sm border-0 sm:border border-black/[.1] px-3 py-3 sm:px-4 sm:py-4 dark:bg-vtd-secondary-800 dark:border-vtd-secondary-700/[1]"
               :class="getAbsoluteClass(open)"
             >
               <div class="flex flex-wrap lg:flex-nowrap">
@@ -1507,6 +1506,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                     <VtdHeader
                       :panel="panel.previous"
                       :calendar="calendar.previous"
+                      :type="type"
                     />
                     <div class="px-0.5 sm:px-2">
                       <VtdMonth
@@ -1544,6 +1544,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                       as-prev-or-next
                       :panel="panel.next"
                       :calendar="calendar.next"
+                      :type="type"
                     />
                     <div class="px-0.5 sm:px-2">
                       <VtdMonth
@@ -1601,7 +1602,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                   </div>
                 </div>
               </div>
-              <!-- <div v-else class="sm:hidden">
+              <div v-else class="sm:hidden">
                 <div
                   class="mt-2 mx-2 py-1.5 border-t border-black/[.1] dark:border-vtd-secondary-700/[1]"
                 >
@@ -1614,7 +1615,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
                     />
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -1648,7 +1649,11 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
               'mb-3 sm:mb-0 sm:mr-2 md:w-1/2': asRange() && !props.asSingle,
             }"
           >
-            <VtdHeader :panel="panel.previous" :calendar="calendar.previous" />
+            <VtdHeader
+              :panel="panel.previous"
+              :calendar="calendar.previous"
+              :type="type"
+            />
             <div class="px-0.5 sm:px-2">
               <VtdMonth
                 v-show="panel.previous.month"
@@ -1681,6 +1686,7 @@ provide(setToCustomShortcutKey, setToCustomShortcut)
               as-prev-or-next
               :panel="panel.next"
               :calendar="calendar.next"
+              :type="type"
             />
             <div class="px-0.5 sm:px-2">
               <VtdMonth
